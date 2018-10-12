@@ -53,7 +53,6 @@ UserSchema.methods.generateAuthToken = function(){
 
 UserSchema.methods.removeToken = function(token){
     let user = this;
-    console.log(JSON.stringify(user.tokens.token,undefined,3));
     return user.update({
         $pull:{
            tokens:{
@@ -85,7 +84,6 @@ UserSchema.statics.findByToken = function(token){
 
 UserSchema.pre('save', function(next){
     let user = this;
-
     if(user.isModified('password')){
         bcrypt.genSalt(10,(err, salt) =>{
             bcrypt.hash(user.password, salt, (err, hash) =>{
